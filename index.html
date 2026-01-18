@@ -1,1 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comportementalisme Canin / Éthologie</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #062c1e; /* Vert forêt profond */
+        }
+        .serif-title {
+            font-family: 'Playfair Display', serif;
+        }
+        .forest-gradient {
+            background: linear-gradient(135deg, #0b3d2e 0%, #052219 100%);
+        }
+        .btn-forest {
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-forest:hover {
+            background-color: #2d5a27;
+            border-color: #4a8c43;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .overlay-pattern {
+            background-image: url("https://www.transparenttextures.com/patterns/leaf.png");
+            opacity: 0.05;
+        }
+
+    </style>
+</head>
+<body class="text-white min-h-screen flex flex-col justify-center items-center relative overflow-hidden">
+    
+    <!-- Éléments d'arrière-plan -->
+    <div class="absolute inset-0 forest-gradient -z-20"></div>
+    <div class="absolute inset-0 overlay-pattern -z-10"></div>
+    
+    <!-- Contenu Principal -->
+    <main class="z-10 w-full max-w-2xl px-6 py-12 text-center">
+        
+        <!-- En-tête -->
+        <header class="mb-12">
+            <h1 class="serif-title text-4xl md:text-5xl lg:text-6xl mb-4 tracking-tight">
+                Comportementalisme Canin <br>
+                <span class="text-emerald-400 font-light">& Éthologie</span>
+            </h1>
+        </header>
+
+        <!-- Boutons de Navigation -->
+        <nav class="flex flex-col space-y-4 w-full max-w-md mx-auto">
+
+            <a href="ethogramme.html" class="btn-forest py-4 px-12 rounded-xl font-medium text-lg group">
+                <span>éthogramme du chien</span>
+            </a>
+            
+
+
+
+           -->
+        </nav>
+
+        <!-- Footer -->
+        <footer class="mt-16 text-gray-400 text-sm">
+            <p>© 2026 Thomas Le Blanc</p>
+        </footer>
+
+    </main>
+
+</body>
+</html>
 
