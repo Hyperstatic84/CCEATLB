@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tempérament et Prédictibilité du Comportement</title>
+    <meta name="description" content="Cours sur le tempérament et la prédictibilité du comportement canin basé sur le document de HumAnimalis.">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Palette Émeraude */
+            --primary-color: #047857;    /* Emerald 700 - Titres principaux */
+            --secondary-color: #065f46;  /* Emerald 800 - Sous-titres foncés */
+            --accent-color: #10b981;     /* Emerald 500 - Accents vifs */
+            --light-bg: #ecfdf5;         /* Emerald 50 - Fond de page */
+            --card-bg: #ffffff;          /* Blanc - Fond des cartes */
+            --text-color: #333;          /* Gris foncé - Texte */
+            --sidebar-bg: #064e3b;       /* Emerald 900 - Fond sidebar */
+            --sidebar-text: #d1fae5;     /* Emerald 100 - Texte sidebar */
+            --sidebar-width: 300px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            margin: 0;
+            display: flex;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+            padding: 2rem 1.5rem;
+            box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+            scrollbar-width: thin;
+            scrollbar-color: var(--secondary-color) var(--sidebar-bg);
+            z-index: 1000;
+        }
+
+        nav h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav li {
+            margin-bottom: 0.8rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--sidebar-text);
+            font-size: 0.95rem;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-left-color: var(--accent-color);
+            padding-left: 15px;
+        }
+
+        nav ul ul {
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+            border-left: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        nav ul ul li {
+            margin-bottom: 0.4rem;
+        }
+
+        nav ul ul a {
+            font-size: 0.85rem;
+            color: #a7f3d0; /* Emerald 200 */
+        }
+
+        nav ul ul a:hover {
+            color: #fff;
+        }
+
+        /* Main Content */
+        main {
+            margin-left: var(--sidebar-width);
+            padding: 3rem 4rem;
+            max-width: 1400px; /* Wider for grid layout */
+            width: 100%;
+        }
+
+        /* En-tête principal */
+        header {
+            margin-bottom: 4rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 4rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(6, 78, 59, 0.2);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .subtitle {
+            color: #d1fae5;
+            font-size: 1.1rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        /* Nouveau Système de Layout en Section/Cartes */
+        .chapter-container {
+            margin-bottom: 5rem;
+        }
+
+        .chapter-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            padding-left: 1rem;
+            border-left: 6px solid var(--accent-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        /* Specific override for sections that need full width or different layout */
+        .single-col {
+            grid-template-columns: 1fr;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Petite barre décorative en haut de chaque carte */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--accent-color);
+            opacity: 0.7;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        /* Grid spans */
+        .span-2 { grid-column: span 2; }
+        .span-full { grid-column: 1 / -1; }
+
+        @media (max-width: 1200px) {
+            .span-2 { grid-column: auto; }
+        }
+
+        /* Typography inside cards */
+        h2 {
+            /* Used for Card Titles now inside cards if needed, or mapped to Chapter Title */
+            display: none; /* We hide H2 inside cards if we moved it to chapter title, or style it differently */
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Pour les cartes d'intro qui n'ont pas de H3, on peut styler le premier P ou ajouter un titre fictif si besoin, mais ici on garde le texte pur */
+        
+        h4 {
+            color: var(--primary-color);
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px dashed #a7f3d0;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            text-align: justify;
+            color: #4b5563;
+        }
+
+        ul, ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            position: relative;
+        }
+        
+        ul { list-style: none; }
+        ul li::before {
+            content: "•";
+            color: var(--accent-color);
+            font-weight: bold;
+            display: inline-block; 
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        blockquote {
+            background: #f0fdfa;
+            border-left: 5px solid var(--accent-color);
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            font-style: italic;
+            color: var(--secondary-color);
+            border-radius: 0 8px 8px 0;
+        }
+        
+        strong { color: var(--primary-color); }
+
+        /* Schémas et Diagrammes CSS */
+        .diagram-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem auto;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 1rem;
+            background-color: #fafafa;
+            border-radius: 8px;
+            border: 1px dashed #d1d5db;
+            width: 100%;
+        }
+
+        .diagram-box {
+            background: var(--light-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid var(--secondary-color);
+            min-width: 140px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            flex: 1;
+        }
+        
+        .diagram-box.result {
+            background: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+
+        .diagram-box .title {
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 0.2rem;
+            font-size: 1rem;
+        }
+        
+        .diagram-box.result .title { color: white; }
+        .diagram-box .subtitle { font-size: 0.8rem; color: var(--primary-color); }
+        .diagram-box.result .subtitle { color: #a7f3d0; }
+        .diagram-operator { font-size: 1.5rem; color: var(--accent-color); font-weight: bold; }
+
+        /* SVG Styles */
+        .chart-svg { width: 100%; height: auto; overflow: visible; max-height: 300px; }
+        .chart-text { font-size: 12px; font-family: 'Lato', sans-serif; fill: var(--text-color); }
+        .chart-grid { stroke: #e5e7eb; stroke-width: 1; }
+        .chart-line { stroke: var(--accent-color); stroke-width: 3; fill: none; stroke-linecap: round; }
+        .chart-dot { fill: var(--primary-color); stroke: white; stroke-width: 2; }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 900px) {
+            body { flex-direction: column; }
+            nav { position: relative; width: 100%; height: auto; padding: 1rem; }
+            main { margin-left: 0; padding: 2rem 1rem; }
+            header { padding: 3rem 1rem; margin-bottom: 3rem; }
+            h1 { font-size: 2rem; }
+            .chapter-title { font-size: 1.6rem; }
+            .cards-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <h2>Sommaire</h2>
+        <ul>
+            <li><a href="#intro">Introduction</a></li>
+            <li><a href="#section1">1. Notion de tempérament</a></li>
+            <li><a href="#section2">2. Les tests de tempérament</a>
+                <ul>
+                    <li><a href="#section2-1">2.1. Sélection reproducteurs</a></li>
+                    <li><a href="#section2-2">2.2. Sélection chiens travail</a></li>
+                    <li><a href="#section2-3">2.3. Adoption refuge</a></li>
+                </ul>
+            </li>
+            <li><a href="#section3">3. Influence génétique</a></li>
+            <li><a href="#section4">4. Tests d’évaluation</a>
+                <ul>
+                    <li><a href="#section4-1">4.1. Modes d’évaluation</a></li>
+                    <li><a href="#section4-2">4.2. Jones et Gosling</a></li>
+                    <li><a href="#section4-3">4.3. Étude DMA</a></li>
+                    <li><a href="#section4-4">4.4. Goddard et Beilharz</a></li>
+                    <li><a href="#section4-5">4.5. Monash (MCPQ)</a></li>
+                    <li><a href="#section4-6">4.6. C-BARQ</a></li>
+                </ul>
+            </li>
+            <li><a href="#section5">5. Peur et agressivité</a>
+                <ul>
+                    <li><a href="#section5-1">5.1. Étude sur la peur</a></li>
+                    <li><a href="#section5-2">5.2. Études sur l’agressivité</a></li>
+                </ul>
+            </li>
+            <li><a href="#section6">6. Prédictibilité chiot</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <header>
+            <h1>Tempérament et Prédictibilité du Comportement</h1>
+            <p class="subtitle">Basé sur le document HumAnimalis - Ludivine GRZEMSKI & Patrick ROULLÉ</p>
+        </header>
+
+        <!-- INTRODUCTION -->
+        <div class="chapter-container" id="intro">
+            <h2 class="chapter-title">Introduction</h2>
+            <div class="cards-grid single-col">
+                <div class="card">
+                    <p>L'étude et la compréhension du comportement canin s'avère d'importance puisque ce dernier est intimement lié dans nos sociétés à l'intégration du chien au cœur des familles et des foyers. Cette proximité implique à la fois des enjeux en termes de sécurité et d'intégration sociale pour l'humain mais également en terme de bien-être pour l'animal, puisque le comportement de ce dernier est l'une des principales causes d'abandon de chiens en refuge.</p>
+                    <p>Ainsi plusieurs études se sont penchées sur la mise en place de tests destinés à l'évaluation du tempérament et la prédictibilité des comportements afin d'améliorer l'appariement des chiens dans leur future famille ou encore pour sélectionner des individus destinés à des fonctions précises (chiens d'assistance par exemple).</p>
+                    <p>En tant que futur comportementaliste, vous serez amené à accompagner des propriétaires dans le choix et l'acquisition d'un chiot ou encore à réaliser des analyses comportementales fines. Dans tous les cas il vous sera nécessaire de maîtriser à la fois les notions de tempérament et de personnalité et de connaître les potentiels et limites des outils de prédictibilité précoces du comportement.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 1 -->
+        <div class="chapter-container" id="section1">
+            <h2 class="chapter-title">1. Notion de tempérament : Définition</h2>
+            <div class="cards-grid single-col">
+                <div class="card">
+                    <p><strong>Diederich et Giffroy (2006) définition du tempérament pour le chien :</strong></p>
+                    <blockquote>Le terme de tempérament doit être utilisé pour caractériser l'ensemble des comportements d'un chien. Chacun des traits qui le caractérise, doit être nommé d'une façon objective qui rassemble l'aspect scientifique et les applications pratiques de cette caractérisation. Ils doivent décrire des comportements présents dès le plus jeune âge, stables dans le temps et dans les situations.</blockquote>
+
+                    <p><strong>Cloninger, Miklosi et al 2014, Gosling 2008: définition de la personnalité pour le chien :</strong></p>
+                    <p>La définition s'appuie sur le modèle défini par Cloninger et se référant à la personnalité humaine. La personnalité se compose et se construit ainsi sur la base du tempérament, correspondant à l'apport génétique et héréditaire de l'individu, et du caractère, ce dernier étant caractérisé par l'impact social et culturel de l'individu, son expérience.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Nuances et Terminologie</h3>
+                    <p>La difficulté, dans la recherche actuelle, est la grande confusion sur le terme « personnalité », en partie parce que les éthologues ou psychologues travaillant sur les animaux ont peur d'être accusé d'anthropomorphisme. Cela a conduit à l'épanouissement de synonymes tels que syndromes comportementaux, types de comportement, styles de comportement, styles d'adaptation, prédispositions émotionnelles, positions et tempérament.</p>
+
+                    <p>En éthologie canine on rencontre principalement deux synonymes tempérament et personnalité, qui, malheureusement, ont été utilisé de façon interchangeable par de nombreux auteurs.</p>
+                    <p>Ici, sur la base des travaux de Carrere et Eens de 2005, nous allons prendre le point de vue fonctionnel anthropomorphique et suggérer une similitude entre la fonction de la personnalité chez les humains et les animaux.</p>
+                    <p>Ainsi la personnalité est définie par un ensemble de traits de comportement qui sont sous l'influence des processus sélectifs et sont le résultat d'une sorte de mécanisme d'adaptation.</p>
+
+                    <!-- SCHEMA 1 : Construction de la Personnalité -->
+                    <div class="diagram-container">
+                        <div class="diagram-box">
+                            <div class="title">Tempérament</div>
+                            <div class="subtitle">Inné / Génétique / Héréditaire</div>
+                        </div>
+                        <div class="diagram-operator">+</div>
+                        <div class="diagram-box">
+                            <div class="title">Caractère</div>
+                            <div class="subtitle">Acquis / Environnement / Expérience</div>
+                        </div>
+                        <div class="diagram-operator">=</div>
+                        <div class="diagram-box result">
+                            <div class="title">Personnalité</div>
+                            <div class="subtitle">Structure globale de l'individu</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Pourquoi "Personnalité" ?</h3>
+                    <p>Il y a deux raisons de préférer le terme général « Personnalité » plutôt que « Tempérament » :</p>
+                    <ul>
+                        <li>Tout d'abord, dans la littérature humaine, il y a une tendance à utiliser « personnalité » pour décrire les adultes, alors que « tempérament » est préféré pour les humains en développement.</li>
+                        <li>Deuxièmement, les conséquences de la personnalité sont importantes, le comportement est plus ou moins stable du fait que la personnalité étant le produit des deux effets génétiques et environnementaux, le comportement sera soumis à des changements marqués de la naissance à la maturation. Avec toutefois une personnalité plus résistante parce que plus structurée après la maturation, donc moins sujette à des modifications.</li>
+                    </ul>
+
+                    <p>En conséquence, le terme « tempérament » pourrait être utilisé pour les traits qui sont présents à des stades précoces du développement (par exemple, néonatale, transitoire ou sociale dans le cas des chien) avant que la maturité ne soit atteinte.</p>
+                    <p>Goldsmith distingue également la notion de "tempérament hérité", qui serait des tendances précoces apparaissant dans les premières périodes et qui serait la base de la personnalité.</p>
+                    
+                    <p>En conséquences, nous pouvons adopter la définition utilisée par Jones et Gosling qui énonce que :</p>
+                    <blockquote>"la personnalité représente les caractéristiques des personnes adultes qui décrit et explique de manière cohérente les modes de sentir, de penser et d'agir."</blockquote>
+
+                    <h4>Les grands traits de personnalité :</h4>
+                    <p>Néanmoins il est possible de faire émerger plusieurs grands traits de personnalité en étudiant les travaux effectués :</p>
+                    <ul>
+                        <li>L'activité/réactivité</li>
+                        <li>La témérité/timidité</li>
+                        <li>L'enjouement</li>
+                        <li>La sociabilité</li>
+                        <li>L'agressivité</li>
+                        <li>La motivation à l'entraînement</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 2 -->
+        <div class="chapter-container" id="section2">
+            <h2 class="chapter-title">2. Les tests de tempérament, quels enjeux ?</h2>
+            <div class="cards-grid">
+                <div class="card span-full">
+                    <p>Les études sur la personnalité de chien ont porté sur différents objectifs comme la prévision du comportement pendant le développement, la description des traits de comportement afin de prévoir des problèmes de comportement ou des aptitudes personnelles ou encore les effets de la sélection sur des préférences phénotypiques.</p>
+                </div>
+
+                <div class="card" id="section2-1">
+                    <h3>2.1. Sélection des reproducteurs</h3>
+                    <p>La sélection des reproducteurs représente un enjeux d'importance. En effet au-delà d'une sélection uniquement basée sur la conformation physiologique d'une race, il s'agit de mettre en lumière certains traits de personnalité potentiellement héritables et qui peuvent affecter le futur bien-être du chien et son intégration dans son futur environnement familiale ou de travail.</p>
+                    <p>Les généticiens estiment qu'environ 20% des gènes s'expriment dans le cerveau grâce auxquels l'individu perçoit, interprète et répond à son environnement. L'influence de la génétique sur le comportement tend à être de plus en plus étudiée notamment grâce au développement de la recherche génétique.</p>
+                    <p>Chez le chien il a été constaté que certains traits tels que l'agressivité, la timidité ou encore l'anxiété pouvaient avoir une origine génétique et se transmettre dans des familles ou lignées. En 1969, Murphy et Dyckman ont ainsi cherché à mettre en lumière l'impact de la génétique sur les comportements de peur, en « créant » une lignée de chiens pointer « peureux ». Ces chiots, élevés dans les même conditions environnementales qu'une autre lignée « témoin » présentaient effectivement des réponses de peur et d'évitement face à l'environnement et dans les interactions avec l'humain et moins de comportements exploratoires.</p>
+                    <p>Chez le Cocker Anglais, il a également été découvert une origine génétique à l'agressivité. Elle concerne particulièrement certaines lignées de Cocker de couleur golden et noire et s'exprimerait dans les lignées dites de beauté (Pageat 1997).</p>
+                </div>
+
+                <div class="card" id="section2-2">
+                    <h3>2.2. Sélection des futurs chiens de travail</h3>
+                    <p>Certaines études ont été menées spécifiquement dans un objectif de sélection de futurs chiens de travail (Goddard et Breilharz de 1984 à 1986 pour les futurs chiens guides d'aveugles). En effet, les programmes d'apprentissage et de formation qu'il s'agisse de chiens d'assistance, de détection, de défense, sont longs et particulièrement couteux et certains traits s'avèrent incompatibles avec la future tâche à effectuer (peur chez le chien guide d'aveugle par exemple). Une étude de Tomkins en 2011 révèle l'incompatibilité au travail de chien guide chez les individus présentant des traits associés à l'agitation et l'anxiété.</p>
+                    <p>Le trait de tempérament/personnalité « aptitude à l'entraînement » est essentiel pour ces chiens. La réussite à l'entrainement diminue pour les chiens à haut niveau d'énergie, hyperactifs, ou qui tirent beaucoup sur la laisse, aboient beaucoup, volent de la nourriture, ou agressent leur maître (Duffy et Serpell, 2012).</p>
+                </div>
+
+                <div class="card span-full" id="section2-3">
+                    <h3>2.3. Faciliter l’adoption des chiens de refuge</h3>
+                    <div style="columns: 2; column-gap: 2rem;">
+                        <p>La possibilité d'être adopté pour des chiens abandonnés en refuge peut être améliorée par l'évaluation du tempérament. Le C-BARQ (détaillé ci-après) a montré son intérêt dans ce cas (Duffy et al., 2014).</p>
+                        <p>En effet les propriétaires qui abandonnent leur animal ont tendance à sous-évaluer volontairement auprès du personnel du refuge les problèmes comportementaux, pensant augmenter leur chance d'adoption. Une version raccourcie du C-BARQ (constituée de 42 items, qui ne prend que 12 minutes), limite ce biais si elle est remplie honnêtement par les propriétaires et les résultats obtenus aux questionnaires sont mieux corrélés aux observations du comportement rapporté par le personnel du refuge.</p>
+                        <p>L'évaluation du tempérament pour améliorer l'adoption des animaux de refuge a aussi été étudié par Van der Borg et al. (1991). Les résultats des tests ont fourni une meilleure prédiction des problèmes rencontrés par les futurs propriétaires que l'opinion de l'équipe du refuge.</p>
+                        <p>Quelques nuances cependant concernant l'utilisation des tests en refuge : les résultats des tests, effectués au refuge et dans un contexte émotionnel particulier peuvent être altérés. Les effets de l'excitation, de l'impulsivité et de l'état émotionnel du chien sont souvent négligés par les testeurs (Rayment et al., 2014). Les auteurs soulignent la nécessité d'évaluer conjointement la stabilité dans le temps et dans le contexte, des traits de tempérament.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 3 -->
+        <div class="chapter-container" id="section3">
+            <h2 class="chapter-title">3. L’influence de la génétique sur le tempérament</h2>
+            <div class="cards-grid single-col">
+                <div class="card">
+                    <p>La sélection effectuée par l'humain sur un grand nombre de générations s'est dirigée à la fois sur des caractéristiques physiologiques mais également comportementales et fonctionnelles en fonction de l'utilité recherché.</p>
+                    <p>Des études ont recherché l'héritabilité de certains aspects du comportement. L'héritabilité peut être considérée comme la part de la variation d'un caractère qui peut être expliquée par la génétique.</p>
+                    <p>L'héritabilité d'un caractère est une valeur chiffrée qui s'interprète comme faible quand sa valeur est inférieure à 0,2 (dans ce cas l'environnement joue une plus grande influence que la génétique dans le caractère considéré) et élevée quand celle-ci est supérieure à 0,4 (Chevallier et al., 2020).</p>
+                    <p>De façon peu surprenante, tous les types de comportement n'ont pas la même héritabilité : par exemple, chez le Flatcoated retriever, le caractère de retrieving (rapporter un objet) a une héritabilité de 0,34, c'est-à-dire moyenne, tandis que l'héritabilité de la capacité d'attendre passivement dans un groupe de chiens est de 0,74, soit très élevée (Lindberg et al., 2004).</p>
+                    <p>Majoritairement, la plupart des caractères testés ont une héritabilité moyenne, située entre 0,1 et 0,4. On notera néanmoins les scores d'héritabilité élevés concernant la peur (0,46) et le niveau d'activité (0,53).</p>
+                    <p>Le caractère polygénique de la personnalité constitue un challenge d'envergure pour les études scientifiques, qui néanmoins nous fournissent quelques explications génétiques à l'expression de certains traits.</p>
+                    <p>Ainsi les traits d'impulsivité et d'activités seraient liés à un récepteur spécifique de la dopamine (DRD4, Wan et al 2013) et l'expression augmentée des gènes UBE2V2 et ZNF227 seraient associée au phénotype de l'agressivité chez le chien (Vage et al, 2010).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 4 -->
+        <div class="chapter-container" id="section4">
+            <h2 class="chapter-title">4. Les tests d’évaluation de la personnalité</h2>
+            
+            <div class="cards-grid">
+                <!-- 4.1 -->
+                <div class="card span-full" id="section4-1">
+                    <h3>4.1. Les modes d’évaluation</h3>
+                    <p>Il existe deux modes d'évaluation de la personnalité chez le chien : les tests de mise en situation et les questionnaires.</p>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                        <div>
+                            <h4>Les tests de mise en situation</h4>
+                            <p>Dans la littérature scientifique, quatre qualités sont requises pour valider un test de tempérament (Diederich et Giffroy, 2006) :</p>
+                            <ul>
+                                <li>La standardisation du protocole et de la notation. La seule variable du test doit être l'animal noté.</li>
+                                <li>La fiabilité. Les résultats ne doivent pas dépendre d'erreurs de mesure. Si le test est répété une deuxième fois, les résultats doivent être significativement corrélés.</li>
+                                <li>La méthode de mesure et de quantification du comportement doit être sensible. Les différents comportements doivent se traduire par des niveaux de score précis et objectifs.</li>
+                                <li>Le test doit montrer sa validité, c'est-à-dire qu'il doit mesurer réellement ce que le testeur cherche à mesurer.</li>
+                            </ul>
+                            <p><strong>Avantages :</strong> Standardisation des épreuves, de l'environnement, du matériel et du système de notation.</p>
+                            <p><strong>Inconvénients :</strong> Évaluent la réaction à un instant donné. Nécessité de répéter le test pour vérifier la stabilité. Les caractéristiques des chiens testés et l'environnement de développement ne sont pas toujours pris en compte. D'un point de vue éthique, certaines situations contraignantes sont sujettes à controverse.</p>
+                        </div>
+                        <div>
+                            <h4>Les questionnaires</h4>
+                            <p>Le principe des questionnaires est de poser de nombreuses questions au sujet du comportement à un familier de l'animal.</p>
+                            <ul>
+                                <li>L'utilisateur du questionnaire score la fréquence des réactions comportementales observées : jamais, rarement, parfois, souvent, toujours.</li>
+                                <li>Le questionnaire peut aussi être constitué d'adjectifs ou de propositions qui qualifient l'animal.</li>
+                            </ul>
+                            <p><strong>Avantages :</strong> L'animal est évalué par un familier dans son environnement habituel. Accessible à tout public. Coût faible. Restitution des résultats souvent lisible (diagrammes).</p>
+                            <p><strong>Inconvénients :</strong> Subjectivité de l'utilisateur. La durée du questionnaire peut être un frein. Termes utilisés doivent être compréhensibles par tous.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4.2 -->
+                <div class="card" id="section4-2">
+                    <h3>4.2. Les dimensions selon Jones et Gosling</h3>
+                    <p>Jones et Gosling ont tenté d'uniformiser tous les termes utilisés dans la littérature pour décrire le tempérament. Leur classification aboutit à définir sept dimensions du tempérament :</p>
+                    <ol>
+                        <li><strong>Réactivité :</strong> Comportements répétés d'approche et d'évitement des objets nouveaux, augmentation de l'activité motrice lors de nouvelles situations.</li>
+                        <li><strong>Peur :</strong> Agitation, approche et retrait, aboiement dans une situation nouvelle ou face à un nouvel objet. Le comportement inverse est appelé courage ou confiance.</li>
+                        <li><strong>Agression :</strong> Grogner, montrer les dents, mordre. Parfois divisé en sous-catégories (territoriale, de peur).</li>
+                        <li><strong>Sociabilité :</strong> Comportement d'initier le contact avec un homme ou d'autres chiens.</li>
+                        <li><strong>Réactivité à l'entraînement :</strong> Travailler avec des hommes, apprendre rapidement, propension au jeu. Aussi appelé volonté de travailler ou coopération.</li>
+                        <li><strong>Dominance/ soumission :</strong> Sujet à débat. Décrit comme le refus de bouger au passage d'une personne ou la brutalité envers les autres (dominance), ou l'évitement de la confrontation (soumission).</li>
+                        <li><strong>Niveau d'activité :</strong> Activité motrice, par exemple le nombre de fois où le chien passe une ligne dans une pièce.</li>
+                    </ol>
+                </div>
+
+                <!-- 4.3 -->
+                <div class="card" id="section4-3">
+                    <h3>4.3. Étude de Svartberg et Forkman (DMA)</h3>
+                    <p>Svartberg et Forkman en 2002 ont réalisé une étude sur 15 329 chiens utilisant un test standardisé suédois (DMA). Les résultats mettent en évidence 5 traits de personnalité :</p>
+                    <ul>
+                        <li>Enjouement</li>
+                        <li>Curiosité/ Crainte</li>
+                        <li>Goût pour la chasse</li>
+                        <li>Sociabilité</li>
+                        <li>Agressivité</li>
+                    </ul>
+
+                    <!-- SCHEMA 2 : Traits de personnalité DMA -->
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 400 300" class="chart-svg">
+                            <!-- Pentagon Background -->
+                            <polygon points="200,50 350,140 290,280 110,280 50,140" fill="#ecfdf5" stroke="#d1d5db" stroke-width="1"></polygon>
+                            <polygon points="200,100 275,145 245,215 155,215 125,145" fill="none" stroke="#e5e7eb" stroke-width="1"></polygon>
+                            
+                            <!-- Axis Lines -->
+                            <line x1="200" y1="165" x2="200" y2="50" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4"></line> <!-- Enjouement -->
+                            <line x1="200" y1="165" x2="350" y2="140" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4"></line> <!-- Curiosité -->
+                            <line x1="200" y1="165" x2="290" y2="280" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4"></line> <!-- Chasse -->
+                            <line x1="200" y1="165" x2="110" y2="280" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4"></line> <!-- Sociabilité -->
+                            <line x1="200" y1="165" x2="50" y2="140" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4"></line> <!-- Agressivité -->
+
+                            <!-- Labels -->
+                            <text x="200" y="35" text-anchor="middle" font-size="12" fill="#065f46" font-weight="bold">Enjouement</text>
+                            <text x="360" y="145" text-anchor="start" font-size="12" fill="#065f46" font-weight="bold">Curiosité/Crainte</text>
+                            <text x="300" y="295" text-anchor="middle" font-size="12" fill="#065f46" font-weight="bold">Goût Chasse</text>
+                            <text x="100" y="295" text-anchor="middle" font-size="12" fill="#065f46" font-weight="bold">Sociabilité</text>
+                            <text x="40" y="145" text-anchor="end" font-size="12" fill="#065f46" font-weight="bold">Agressivité</text>
+
+                            <!-- Data Polygon (Sample Shape) -->
+                            <polygon points="200,70 320,140 260,250 140,240 80,140" fill="rgba(16, 185, 129, 0.2)" stroke="#10b981" stroke-width="2"></polygon>
+                            
+                            <!-- Center Point -->
+                            <circle cx="200" cy="165" r="3" fill="#047857"></circle>
+                            <text x="200" y="185" text-anchor="middle" font-size="10" fill="#6b7280" font-style="italic">Modèle DMA (Visuel indicatif)</text>
+                        </svg>
+                    </div>
+
+                    <p>Ils mettent également en évidence un trait majeur appelé « confiance » / « timidité », stable au cours de l'évolution (comparaison avec le loup).</p>
+                    <p><strong>Description du test :</strong> Divisé en 10 sous-tests incluant Contact social, Jeu, Poursuite, Situation passive, Jeu à distance, Apparition soudaine (mannequin), Bruit métallique, Fantômes, Jeu 2, et Coup de feu.</p>
+                </div>
+
+                <!-- 4.4 -->
+                <div class="card" id="section4-4">
+                    <h3>4.4. Étude de Goddard et Beilharz</h3>
+                    <p>En 1986, étude sur les chiens guides d'aveugles. 17 caractères étudiés (Nervosité, Suspicion, Peur des bruits, Anxiété, Agression, Concentration, Distraction, etc.).</p>
+                    <p>Les cinq facteurs trouvés sont : Distraction, Appréciation générale, Soumission, Peur simple (inhibition), Réponse active face à la peur. La définition de ces facteurs est jugée vague par rapport à Jones et Gosling.</p>
+                </div>
+
+                <!-- 4.5 -->
+                <div class="card" id="section4-5">
+                    <h3>4.5. Le Monash (MCPQ)</h3>
+                    <p>Le MCPQ (Ley et al., 2007) est basé sur le modèle humain du Big Five. La version révisée de 2008 comprend 26 adjectifs répartis en 5 traits :</p>
+                    <ul>
+                        <li><strong>Extraversion :</strong> Actif, Énergique, Excitable...</li>
+                        <li><strong>Motivation :</strong> Affirmé, Déterminé...</li>
+                        <li><strong>Motivation à l'entrainement :</strong> Attentif, Obéissant, Intelligent...</li>
+                        <li><strong>Amabilité :</strong> Amical, Non-agressif, Sociable...</li>
+                        <li><strong>Névrosisme :</strong> Peureux, Nerveux, Soumis, Timide.</li>
+                    </ul>
+                    <p>Le résultat est un pourcentage pour chaque trait. Le test est simple, fiable, mais nécessite la maîtrise de l'anglais.</p>
+                </div>
+
+                <!-- 4.6 -->
+                <div class="card span-full" id="section4-6">
+                    <h3>4.6. Le C-BARQ</h3>
+                    <div style="columns: 2; column-gap: 2rem;">
+                        <p>Élaboré par Serpell et Hsu en 2003, accessible en ligne. L'utilisateur crée un profil pour l'animal et répond à des questions sur l'entraînement, l'agression, la peur, l'anxiété de séparation, l'excitabilité, etc.</p>
+                        
+                        <p><strong>Les questions se décomposent ainsi :</strong></p>
+                        <ul>
+                            <li><strong>Section 1 :</strong> Entraînement et obéissance (8 questions).</li>
+                            <li><strong>Section 2 :</strong> Agression (27 questions).</li>
+                            <li><strong>Section 3 :</strong> Peur et anxiété (17 questions).</li>
+                            <li><strong>Section 4 :</strong> Comportement lié à la séparation (10 questions).</li>
+                            <li><strong>Section 5 :</strong> Excitabilité (5 questions).</li>
+                            <li><strong>Section 6 :</strong> Troubles de l'attention (5 questions).</li>
+                            <li><strong>Section 7 :</strong> Questions diverses (25 questions).</li>
+                        </ul>
+
+                        <p><strong>Les 15 traits notés sont :</strong></p>
+                        <ul>
+                            <li>Agression envers un étranger, Agression envers son propriétaire, Agression envers un autre chien, Agression envers des chiens familiers</li>
+                            <li>Peur des autres chiens, Peur des étrangers, Peur non-sociale</li>
+                            <li>Aptitude à l'entrainement, Poursuite</li>
+                            <li>Troubles de la séparation, Sensibilité au contact</li>
+                            <li>Excitabilité, Attachement-recherche d'attention, Activité/énergie</li>
+                        </ul>
+
+                        <p>Les résultats sont présentés sous forme de diagramme. Chaque bâton du diagramme est d'une couleur correspondant à un code couleur (vert, jaune, orange, rouge) qui correspond à l'évaluation d'une note plus ou moins acceptable pour ce trait. Un marqueur gris situe la moyenne des autres chiens.</p>
+                    </div>
+
+                    <!-- Visual Example C-BARQ -->
+                    <div style="background-color: #f8f9fa; border: 1px solid #e5e7eb; padding: 25px; border-radius: 8px; margin-top: 25px; width: 100%;">
+                        <h4 style="margin-top: 0; text-align: center; color: var(--secondary-color); font-family: 'Playfair Display', serif; display: block; border: none;">Exemple de Résultats C-BARQ</h4>
+                        <p style="font-size: 0.9em; text-align: center; margin-bottom: 25px; font-style: italic;">Scores pour "Shiva" comparés à la moyenne de la population (indicateur gris)</p>
+                        
+                        <style>
+                            .cbarq-item { display: flex; align-items: center; margin-bottom: 12px; font-size: 0.85rem; }
+                            .cbarq-label { width: 35%; padding-right: 15px; text-align: right; color: #555; font-weight: 600; }
+                            .cbarq-bar-container { width: 60%; background-color: #e2e8f0; height: 18px; border-radius: 4px; position: relative; overflow: visible; }
+                            .cbarq-bar { height: 100%; border-radius: 4px; transition: width 1s ease-in-out; }
+                            .cbarq-marker { position: absolute; top: -4px; width: 4px; height: 26px; background-color: #6b7280; z-index: 10; border: 1px solid white; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+                            .color-green { background-color: #34d399; }
+                            .color-yellow { background-color: #fbbf24; }
+                            .color-orange { background-color: #fb923c; }
+                            .color-red { background-color: #f87171; }
+                        </style>
+
+                        <div class="cbarq-item">
+                            <div class="cbarq-label">Agression étranger</div>
+                            <div class="cbarq-bar-container">
+                                <div class="cbarq-bar color-green" style="width: 10%;"></div>
+                                <div class="cbarq-marker" style="left: 15%;" title="Moyenne population"></div>
+                            </div>
+                        </div>
+                        <div class="cbarq-item">
+                            <div class="cbarq-label">Agression propriétaire</div>
+                            <div class="cbarq-bar-container">
+                                <div class="cbarq-bar color-green" style="width: 5%;"></div>
+                                <div class="cbarq-marker" style="left: 8%;"></div>
+                            </div>
+                        </div>
+                        <div class="cbarq-item">
+                            <div class="cbarq-label">Agression chien inconnu</div>
+                            <div class="cbarq-bar-container">
+                                <div class="cbarq-bar color-orange" style="width: 65%;"></div>
+                                <div class="cbarq-marker" style="left: 30%;"></div>
+                            </div>
+                        </div>
+                         <div class="cbarq-item">
+                            <div class="cbarq-label">Peur des étrangers</div>
+                            <div class="cbarq-bar-container">
+                                <div class="cbarq-bar color-green" style="width: 15%;"></div>
+                                <div class="cbarq-marker" style="left: 20%;"></div>
+                            </div>
+                        </div>
+                        <div class="cbarq-item">
+                            <div class="cbarq-label">Aptitude entraînement</div>
+                            <div class="cbarq-bar-container">
+                                <div class="cbarq-bar color-yellow" style="width: 45%;"></div>
+                                <div class="cbarq-marker" style="left: 55%;"></div>
+                            </div>
+                        </div>
+                        <div class="cbarq-item">
+                            <div class="cbarq-label">Poursuite</div>
+                            <div class="cbarq-bar-container">
+                                <div class="cbarq-bar color-red" style="width: 85%;"></div>
+                                <div class="cbarq-marker" style="left: 40%;"></div>
+                            </div>
+                        </div>
+                        <div class="cbarq-item">
+                            <div class="cbarq-label">Excitabilité</div>
+                            <div class="cbarq-bar-container">
+                                <div class="cbarq-bar color-yellow" style="width: 60%;"></div>
+                                <div class="cbarq-marker" style="left: 50%;"></div>
+                            </div>
+                        </div>
+                         <div class="cbarq-item">
+                            <div class="cbarq-label">Anxiété séparation</div>
+                            <div class="cbarq-bar-container">
+                                <div class="cbarq-bar color-green" style="width: 12%;"></div>
+                                <div class="cbarq-marker" style="left: 15%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 5 -->
+        <div class="chapter-container" id="section5">
+            <h2 class="chapter-title">5. Evaluations spécifiques : La peur et l’agressivité</h2>
+            <div class="cards-grid">
+                <div class="card" id="section5-1">
+                    <h3>5.1. Présentation d’étude portant sur la peur</h3>
+                    <p>Goddard et Beilharz (1984) ont étudié la peur chez les chiens guides d'aveugles pour la prédire précocement.</p>
+                    <p>Les chiots sont soumis à des tests à différents âges (12 semaines, 4 mois, 6 mois, 12 mois) incluant promenade en ville, rencontre avec objets insolites (cheval jouet), bruits (sifflet, claquement), coup de feu. Au centre, des tests plus poussés sont effectués (ballon, voiturette, fantômes, ouverture de parapluie...).</p>
+                    <p><strong>Conclusion :</strong> La répétabilité du score « peur en promenade » diminue avec la durée écoulée entre les tests. L'exactitude de prévision augmente avec l'âge.</p>
+                </div>
+
+                <div class="card" id="section5-2">
+                    <h3>5.2. Présentation d’études sur l’agressivité</h3>
+                    <p><strong>L'étude de Netto et Planta (1997) :</strong> Développement d'un test pour détecter les niveaux d'agressivité dangereux. Test sur 112 chiens (dont races dites dangereuses et chiens ayant mordu).</p>
+                    <p>Le test comprend 43 sous-tests d'intensité croissante. Les chiens sont notés de 1 (aucune agression) à 5 (mordre ou attaquer). 67% des chiens montrent au moins une tentative de morsure, ce qui montre la sévérité du test. Les auteurs définissent des critères de niveau d'agression acceptable (système de points de pénalité).</p>
+                    
+                    <p><strong>L'étude de Haverbeke (2009) :</strong> Évaluation de l'agression chez les chiens de travail militaires. L'hypothèse est que les chiens opérationnels ne devraient pas montrer d'agression hors travail. Les réactions d'agression observées sont majoritairement dues à la peur. Recommandations : sélection basée sur la curiosité et l'intrépidité, socialisation précoce, méthodes de travail basées sur le renforcement positif.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 6 -->
+        <div class="chapter-container" id="section6">
+            <h2 class="chapter-title">6. Prédictibilité du tempérament chez le chiot</h2>
+            <div class="cards-grid single-col">
+                <div class="card">
+                    <p>Prédire comment le comportement d'un chiot va évoluer est un "Saint Graal" de la recherche, mais les résultats sont mitigés.</p>
+                    <p>Problèmes rencontrés :</p>
+                    <ul>
+                        <li>Certains aspects sont sous forte influence génétique, d'autres influencés par l'environnement.</li>
+                        <li>La maturation du comportement n'est pas synchrone pour tous les systèmes.</li>
+                        <li>La relation complexe entre le comportement du chiot et de l'adulte (ex: réaction de peur change au cours du développement).</li>
+                    </ul>
+                    <p>Goddard et Beilharz ont trouvé que la mesure de réactions précoces de la peur n'est pas un bon prédicteur du comportement plus tard. La valeur prédictive des tests augmente avec l'âge.</p>
+
+                    <!-- SCHEMA 3 : Courbe de Prédictibilité -->
+                    <div class="diagram-container">
+                         <svg viewBox="0 0 500 200" class="chart-svg">
+                            <!-- Grid -->
+                            <line x1="50" y1="180" x2="480" y2="180" stroke="#9ca3af" stroke-width="2"></line> <!-- X Axis -->
+                            <line x1="50" y1="20" x2="50" y2="180" stroke="#9ca3af" stroke-width="2"></line>  <!-- Y Axis -->
+                            
+                            <!-- Axis Labels -->
+                            <text x="260" y="198" text-anchor="middle" font-size="12" fill="#4b5563" font-weight="bold">Âge du chien</text>
+                            <text x="15" y="100" text-anchor="middle" font-size="12" fill="#4b5563" transform="rotate(-90 15,100)" font-weight="bold">Fiabilité Prédictive</text>
+
+                            <!-- X ticks -->
+                            <text x="50" y="195" text-anchor="middle" font-size="10" fill="#6b7280">Naissance</text>
+                            <text x="150" y="195" text-anchor="middle" font-size="10" fill="#6b7280">8 sem.</text>
+                            <text x="250" y="195" text-anchor="middle" font-size="10" fill="#6b7280">6 mois</text>
+                            <text x="350" y="195" text-anchor="middle" font-size="10" fill="#6b7280">12 mois</text>
+                            <text x="450" y="195" text-anchor="middle" font-size="10" fill="#6b7280">Adulte</text>
+
+                            <!-- Curve (Approximate representation of increasing predictability) -->
+                            <path d="M50,170 Q150,165 250,120 T450,40" fill="none" stroke="#10b981" stroke-width="3"></path>
+                            
+                            <!-- Annotations -->
+                            <circle cx="150" cy="165" r="4" fill="#047857"></circle>
+                            <text x="150" y="155" text-anchor="middle" font-size="10" fill="#047857">Faible</text>
+
+                            <circle cx="450" cy="40" r="4" fill="#047857"></circle>
+                            <text x="450" y="30" text-anchor="middle" font-size="10" fill="#047857">Élevée</text>
+                        </svg>
+                    </div>
+
+                    <h4>Le test de Campbell (1975)</h4>
+                    <p>Test simple de 5 items à effectuer idéalement à 7 semaines :</p>
+                    
+                    <div style="background-color: #f8f9fa; border-radius: 8px; padding: 20px; margin-bottom: 20px; border: 1px dashed #d1d5db;">
+                        <ul style="padding-left: 0; list-style: none;">
+                            <li style="margin-bottom: 12px; display: flex; align-items: baseline;">
+                                <span style="color: var(--accent-color); font-weight: bold; margin-right: 10px;">1.</span>
+                                <div><strong>Attraction sociale :</strong> Le testeur s'éloigne, s'accroupit et tape dans ses mains pour attirer le chiot.</div>
+                            </li>
+                            <li style="margin-bottom: 12px; display: flex; align-items: baseline;">
+                                <span style="color: var(--accent-color); font-weight: bold; margin-right: 10px;">2.</span>
+                                <div><strong>Aptitude à suivre :</strong> Le testeur se lève et s'éloigne du chiot en marchant normalement.</div>
+                            </li>
+                            <li style="margin-bottom: 12px; display: flex; align-items: baseline;">
+                                <span style="color: var(--accent-color); font-weight: bold; margin-right: 10px;">3.</span>
+                                <div><strong>Dominance sociale (Contrainte) :</strong> Le chiot est caressé fermement de la tête vers le dos.</div>
+                            </li>
+                            <li style="margin-bottom: 12px; display: flex; align-items: baseline;">
+                                <span style="color: var(--accent-color); font-weight: bold; margin-right: 10px;">4.</span>
+                                <div><strong>Dominance par élévation :</strong> Le chiot est soulevé du sol par le ventre et la poitrine pendant 30 secondes.</div>
+                            </li>
+                            <li style="margin-bottom: 0; display: flex; align-items: baseline;">
+                                <span style="color: var(--accent-color); font-weight: bold; margin-right: 10px;">5.</span>
+                                <div><strong>Dominance par contrainte :</strong> Le chiot est maintenu physiquement sur le dos au sol pendant 30 secondes.</div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <p>Ce test est aujourd'hui critiqué : notions de dominance/soumission fondées sur des concepts erronés, absence de validité et fiabilité scientifique. Il permet d'observer certaines tendances sur le moment mais n'a pas de valeur prédictive fiable sur le chien adulte.</p>
+
+                    <h3>Conclusion</h3>
+                    <p>S'il existe plusieurs outils d'évaluation de la personnalité chez le chien, ils sont majoritairement conçus à des fins spécifiques et pour des populations précises. Les résultats sont parfois peu fiables du fait de la difficulté de standardisation.</p>
+                    <p>L'enjeu reste d'importance pour améliorer l'appariement chien-famille, la sélection des reproducteurs et les adoptions en refuge. Le développement d'outils accessibles permettra un meilleur niveau de bien-être pour le chien et l'humain.</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</body>
+</html>
